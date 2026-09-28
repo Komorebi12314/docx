@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ToAPIs 文档</title>
+  <link id="theme-link" rel="stylesheet" href="assets/vue.css">
+  <style>
+    .theme-toggle {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 100;
+      padding: 6px 14px;
+      border: 1px solid var(--border-color, #ddd);
+      border-radius: 16px;
+      background: var(--background, #fff);
+      color: var(--text-color, #333);
+      cursor: pointer;
+      font-size: 13px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+    .theme-toggle:hover { opacity: .85; }
+  </style>
+</head>
+<body>
+  <div id="app">文档加载中……</div>
+  <button class="theme-toggle" onclick="toggleTheme()">切换主题</button>
+  <script>
+    window.$docsify = {
+      name: 'ToAPIs 文档',
+      repo: '',
+      homepage: 'quickstart.md',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      autoHeader: true,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索文档…',
+        noData: '未找到结果',
+        depth: 4
+      }
+    };
+
+    // 明暗主题切换，记忆到 localStorage
+    var saved = localStorage.getItem('toapis-theme');
+    if (saved === 'dark') {
+      document.getElementById('theme-link').href = 'assets/dark.css';
+    }
+    function toggleTheme() {
+      var link = document.getElementById('theme-link');
+      var isDark = link.href.indexOf('dark.css') !== -1;
+      link.href = isDark ? 'assets/vue.css' : 'assets/dark.css';
+      localStorage.setItem('toapis-theme', isDark ? 'light' : 'dark');
+    }
+  </script>
+  <script src="assets/docsify.min.js"></script>
+  <script src="assets/search.min.js"></script>
+</body>
+</html>
